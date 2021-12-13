@@ -16,7 +16,6 @@ public class AsteroidBehaviour : MonoBehaviour
     private float _speed = 10f;
 
     private float _health = 50f;
-    //private float _impulseForce;
 
     private void Awake()
     {
@@ -26,8 +25,6 @@ public class AsteroidBehaviour : MonoBehaviour
     }
     void Start()
     {
-
-
         _sR.sprite = _sprites[Random.Range(0, _sprites.Length)];        //Sprite del asteroide
         transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360f);       //Rotacion del asteroide
         transform.localScale = Vector3.one * _size;     //Tamaño del asteroide

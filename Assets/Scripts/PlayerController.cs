@@ -9,16 +9,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _bulletSpawner;
+    [SerializeField] private Animator _animator;
 
     [SerializeField] private float _speed;
     private bool _moving;
+    private bool _movingS;
+    private bool _mForward;
 
     [SerializeField] private float _rotationSpeed = 0.5f;
     private float _rotationDirection;
 
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _currentHealth;
-    private bool _dead;
+    public bool _dead;
 
     private void Awake()
     {
@@ -31,12 +34,16 @@ public class PlayerController : MonoBehaviour
         //MOVEMENT
         if (Input.GetKey(KeyCode.W))
         {
+            _animator.SetBool("Moving", true);
             _moving = true;
+            _mForward = true;
         }
-        //if (Input.GetKey(KeyCode.S))
-        //{
-        //    _moving = true;
-        //}
+        if (Input.GetKey(KeyCode.S))
+        {
+            _animator.SetBool("Moving", true);
+            _moving = true;
+            _mForward = false;
+        }
         if (Input.GetKey(KeyCode.A))
         {
             _rotationDirection = 1f;
@@ -53,26 +60,38 @@ public class PlayerController : MonoBehaviour
         //SHOOTING
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            _GM._aM.PlayerShot();
             Instantiate(_bullet, _bulletSpawner.position, _bulletSpawner.rotation);
         }
     }
 
     private void FixedUpdate()
     {
-        if (_moving)
+        if (_moving && _mForward)
         {
             _rb.AddForce(transform.up * _speed);
+            StartCoroutine(ThrustingSound());
+        }
+        else if (_moving && !_mForward)
+        {
+            _rb.AddForce(-transform.up * _speed);
+            StartCoroutine(ThrustingSound());
         }
 
         if (_rotationDirection != 0)
         {
             _rb.AddTorque(_rotationDirection * _rotationSpeed, ForceMode2D.Force);
         }
+
+        if (!_moving)
+        {
+            _animator.SetBool("Moving", false);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Asteroid"))
+        if (collision.collider.CompareTag("Asteroid") || collision.collider.CompareTag("EBullet"))
         {
             _dead = true;
             if (_dead)
@@ -82,8 +101,21 @@ public class PlayerController : MonoBehaviour
                 _rb.angularVelocity = 0f;
 
                 gameObject.SetActive(false);
+
                 _GM.PlayerDead();
             }
+        }
+    }
+
+    IEnumerator ThrustingSound()
+    {
+        if (!_movingS && _moving)
+        {
+            _movingS = true;
+            _GM._aM.PlayerThrust();
+            yield return new WaitForSeconds(0.3f);
+            _movingS = false;
+            StartCoroutine(ThrustingSound());
         }
     }
 }

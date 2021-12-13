@@ -97,12 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adff2366ebb262443969cae160f3ed32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _GM: {fileID: 0}
   _sR: {fileID: 4254627601610423947}
   _rb: {fileID: 4254627601610423950}
   _sprites:
-  - {fileID: 21300000, guid: d064cfa9f97b5d84f8e65fc9f58ee74b, type: 3}
-  - {fileID: 21300000, guid: 81472ea7d1343944eab94c54f89170be, type: 3}
-  - {fileID: 21300000, guid: 2518a5357728dcc4c9c39ab1061efd9a, type: 3}
+  - {fileID: 21300000, guid: d304cf8d5f90dfd47931c86a2641504e, type: 3}
+  - {fileID: 21300000, guid: 3e9487d86dfa12a4eb987248974b9091, type: 3}
+  - {fileID: 21300000, guid: 051d47a9aef8f4e43923ecb9a0248eee, type: 3}
   _size: 1
   _minSize: 0.3
   _maxSize: 2
@@ -142,4 +143,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.7
