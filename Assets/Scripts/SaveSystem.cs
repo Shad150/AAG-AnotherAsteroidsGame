@@ -6,33 +6,37 @@ public static class SaveSystem
 {
     public static void SaveRecord(GameManager gM)
     {
-        BinaryFormatter formatter = new BinaryFormatter();
+        //BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/record.bruh";
-        FileStream stream = new FileStream(path, FileMode.Create);
+        //FileStream stream = new FileStream(path, FileMode.Create);
 
-        RecordData data = new RecordData(gM);
+        //RecordData data = new RecordData(gM);
 
-        formatter.Serialize(stream, data);
-        stream.Close();
+        //formatter.Serialize(stream, data);
+        //stream.Close();
+
+        File.WriteAllText(path, gM._maxScore.ToString());
     }
 
-    public static RecordData LoadRecord()
+    public static int LoadRecord()
     {
         string path = Application.persistentDataPath + "/record.bruh";
-        if (File.Exists(path))
+        if (!File.Exists(path))
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
+            File.WriteAllText(path, "0");
 
-            RecordData data = formatter.Deserialize(stream) as RecordData;
-            stream.Close();
-
-            return data;
-        }
-        else
-        {
             Debug.LogError("Save file not found in " + path);
-            return null;
+            //return null;
         }
+
+
+        //BinaryFormatter formatter = new BinaryFormatter();
+        //FileStream stream = new FileStream(path, FileMode.Open);
+
+        //RecordData data = formatter.Deserialize(stream) as RecordData;
+        //stream.Close();
+
+        return int.Parse(File.ReadAllText(path));
+        ;
     }
 }

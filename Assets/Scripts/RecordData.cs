@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class RecordData 
 {
-
     public int _maxScore;
 
     public RecordData (GameManager gM)

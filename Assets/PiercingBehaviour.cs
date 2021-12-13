@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBehaviour : MonoBehaviour
+public class PiercingBehaviour : MonoBehaviour
 {
     private Rigidbody2D _rb;
     [SerializeField] private float _speed;
@@ -15,17 +15,12 @@ public class BulletBehaviour : MonoBehaviour
 
     private void Update()
     {
-        gameObject.transform.Translate(Vector3.up * _speed *Time.deltaTime);
+        gameObject.transform.Translate(Vector3.up * _speed * Time.deltaTime);
     }
 
     private IEnumerator Destroy()
     {
         yield return new WaitForSeconds(3f);
         Destroy(gameObject);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-            Destroy(gameObject);
     }
 }

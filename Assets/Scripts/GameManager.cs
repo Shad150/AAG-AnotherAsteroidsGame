@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private PowerUps _powerUps;
+    [SerializeField] private CameraShake _camShake;
     [SerializeField] private PlayerController _pC;
     [SerializeField] public AudioManager _aM;
     [SerializeField] private AsteroidSpawner _aS;
@@ -61,6 +63,12 @@ public class GameManager : MonoBehaviour
             }
             
         }
+
+        if (_pC._1Up)
+        {
+            _livesText.text = _pLives.ToString();
+            _pC._1Up = false;
+        }
     }
 
     public void AsteroidDestroyed(AsteroidBehaviour asteroid)
@@ -68,6 +76,7 @@ public class GameManager : MonoBehaviour
         _asteroidExplosion.transform.position = asteroid.transform.position;
         _asteroidExplosion.Play();
         _aM.AsteroidExplosion();
+        StartCoroutine(_camShake.Shake(0.15f, 0.1f));
 
         if (asteroid._size < 0.75f)
         {
@@ -147,7 +156,7 @@ public class GameManager : MonoBehaviour
         _inGamePanel.SetActive(false);
         _finalScore = _score;
         _finalScoreText.text = _finalScore.ToString();
-        LoadRecord();
+        _maxScore = SaveSystem.LoadRecord();
 
         if (_score > _maxScore)
         {
@@ -199,8 +208,9 @@ public class GameManager : MonoBehaviour
     
     public void LoadRecord()
     {
-        RecordData data = SaveSystem.LoadRecord();
 
-        _maxScore = data._maxScore;
+        //RecordData data = SaveSystem.LoadRecord();
+
+        //_maxScore = data._maxScore;
     }
 }

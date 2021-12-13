@@ -5,11 +5,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private BulletBehaviour _bB;
     [SerializeField] private GameManager _GM;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _bulletSpawner;
+    [SerializeField] private GameObject _piercingBullet;
     [SerializeField] private Animator _animator;
+    private bool pierce;
 
     [SerializeField] private float _speed;
     private bool _moving;
@@ -22,6 +25,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _currentHealth;
     public bool _dead;
+
+    public bool _1Up;
 
     private void Awake()
     {
@@ -61,7 +66,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _GM._aM.PlayerShot();
-            Instantiate(_bullet, _bulletSpawner.position, _bulletSpawner.rotation);
+            if (pierce)
+            {
+                Instantiate(_piercingBullet, _bulletSpawner.position, _bulletSpawner.rotation);
+            }
+            else
+            {
+                Instantiate(_bullet, _bulletSpawner.position, _bulletSpawner.rotation);
+            }
         }
     }
 
@@ -105,6 +117,24 @@ public class PlayerController : MonoBehaviour
                 _GM.PlayerDead();
             }
         }
+
+        if (collision.collider.CompareTag("1Up"))
+        {
+            _1Up = true;
+            _GM._pLives++;
+        }
+
+        if (collision.collider.CompareTag("Piercing"))
+        {
+            StartCoroutine(PiercingAmmo());
+        }
+    }
+
+    IEnumerator PiercingAmmo()
+    {
+        pierce = true;
+        yield return new WaitForSeconds(10f);
+        pierce = false;
     }
 
     IEnumerator ThrustingSound()
