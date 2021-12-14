@@ -891,7 +891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 0}
+  sharedProfile: {fileID: 11400000, guid: 8de69e43162276a428004fb1f9c1f7e5, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -12184,7 +12184,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e8ad5f6aa3ffa2a4081cc2edeb48cd5a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06f14b9d31b6a0a4885a663ee6cd4bbc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
