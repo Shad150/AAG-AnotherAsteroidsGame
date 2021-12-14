@@ -56,7 +56,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Bullet"))
+        if (collision.collider.CompareTag("Bullet") || collision.collider.CompareTag("Shield"))
         {
             _GM._aM.PlayerExplosion();
             FindObjectOfType<GameManager>().EnemyDestroyed(this);

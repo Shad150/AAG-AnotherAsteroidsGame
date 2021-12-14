@@ -149,3 +149,4 @@ MonoBehaviour:
   _powerUps:
   - 1Up
   - Piercing
+  - Shield

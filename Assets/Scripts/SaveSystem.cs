@@ -35,8 +35,6 @@ public static class SaveSystem
 
         //RecordData data = formatter.Deserialize(stream) as RecordData;
         //stream.Close();
-
         return int.Parse(File.ReadAllText(path));
-        ;
     }
 }

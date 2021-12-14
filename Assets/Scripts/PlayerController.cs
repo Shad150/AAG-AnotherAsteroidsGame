@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _bulletSpawner;
     [SerializeField] private GameObject _piercingBullet;
     [SerializeField] private Animator _animator;
+    [SerializeField] private GameObject _shield;
     private bool pierce;
+    private bool shield;
 
     [SerializeField] private float _speed;
     private bool _moving;
@@ -31,6 +33,11 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        _shield.SetActive(false);
     }
 
     private void Update()
@@ -75,6 +82,7 @@ public class PlayerController : MonoBehaviour
                 Instantiate(_bullet, _bulletSpawner.position, _bulletSpawner.rotation);
             }
         }
+
     }
 
     private void FixedUpdate()
@@ -103,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Asteroid") || collision.collider.CompareTag("EBullet"))
+        if (collision.collider.CompareTag("Asteroid") || collision.collider.CompareTag("EBullet") || collision.collider.CompareTag("Enemy"))
         {
             _dead = true;
             if (_dead)
@@ -128,6 +136,11 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(PiercingAmmo());
         }
+        if (collision.collider.CompareTag("Shield"))
+        {
+            Debug.Log("ActivatedShield");
+            StartCoroutine(Shield());
+        }
     }
 
     IEnumerator PiercingAmmo()
@@ -136,6 +149,16 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(10f);
         pierce = false;
     }
+
+    IEnumerator Shield()
+    {
+        shield = true;
+        _shield.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        shield = false;
+        _shield.SetActive(false);
+    }
+
 
     IEnumerator ThrustingSound()
     {
@@ -147,5 +170,11 @@ public class PlayerController : MonoBehaviour
             _movingS = false;
             StartCoroutine(ThrustingSound());
         }
+    }
+
+    private void OnEnable()
+    {
+        pierce = false;
+        shield = false;
     }
 }

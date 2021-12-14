@@ -9,6 +9,9 @@ TagManager:
   - EBullet
   - 1Up
   - Piercing
+  - Shield
+  - Undefined
+  - Enemy
   layers:
   - Default
   - TransparentFX

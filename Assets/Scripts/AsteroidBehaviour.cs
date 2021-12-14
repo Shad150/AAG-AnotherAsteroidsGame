@@ -42,7 +42,7 @@ public class AsteroidBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Bullet"))
+        if (collision.collider.CompareTag("Bullet") || collision.collider.CompareTag("Shield"))
         {
             if(_size * 0.5 >= _minSize)
             {

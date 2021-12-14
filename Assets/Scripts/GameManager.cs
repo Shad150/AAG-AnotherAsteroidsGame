@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] PostProcessProfile _defaultPP, _puPP;
+    [SerializeField] PostProcessVolume _ppVolume;
     [SerializeField] private PowerUps _powerUps;
     [SerializeField] private CameraShake _camShake;
     [SerializeField] private PlayerController _pC;
@@ -18,15 +21,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text _finalScoreText;
     [SerializeField] private Text _maxScoreText;
     [SerializeField] private Text _livesText;
+    [SerializeField] private Text _respawnCountText;
+    [SerializeField] private Canvas _respawnCountTextCanvas;
     [SerializeField] private GameObject _gameOverMenu;
     [SerializeField] private GameObject _inGamePanel;
     [SerializeField] private GameObject _pauseMenu;
     public GameObject _player;
     private bool _paused;
 
-    public int _pLives = 3;
+    //private int _lifes = 3;
+
+    //public int Lifes
+    //{
+    //    get { return _lifes; }
+    //    set { _lifes = value; }
+    //}
+    // public variables ej: PLives instead of _pLives // Deberian ser tipo get/set.
+
+    public int _pLives = 3;     
     public float _respawnTime = 3f;
     private float _respawnInvulnerability = 3f;
+    private float _respawnCount = 3f;
     public bool _playerDead;
 
     private int _score = 0;
@@ -35,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _respawnCountText.enabled = false;
         _pauseMenu.SetActive(false);
         _aS._inMenu = false;
         _inGamePanel.SetActive(true);
@@ -69,6 +85,8 @@ public class GameManager : MonoBehaviour
             _livesText.text = _pLives.ToString();
             _pC._1Up = false;
         }
+
+        _respawnCountTextCanvas.transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 
     public void AsteroidDestroyed(AsteroidBehaviour asteroid)
@@ -143,11 +161,16 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
+            _respawnCountText.enabled = true;
+            _respawnCountText.text = _respawnCount.ToString();
             yield return new WaitForSeconds(0.5f);
             _pC.GetComponent<SpriteRenderer>().enabled = false;
             yield return new WaitForSeconds(0.5f);
+            _respawnCount--;
             _pC.GetComponent<SpriteRenderer>().enabled = true;
         }
+        _respawnCount = 3f;
+        _respawnCountText.enabled = false;
     }
 
     private void GameOver()
