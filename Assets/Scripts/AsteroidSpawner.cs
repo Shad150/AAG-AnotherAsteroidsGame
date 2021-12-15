@@ -7,7 +7,7 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField] private AsteroidBehaviour _asteroid;
     [SerializeField] private EnemyBehaviour _enemy;
 
-    private float _spawnRate = 2f;
+    private float _spawnRate = 1.5f;
     private int _spawnAmount = 1;
 
     private float _enemySpawnRate = 10f;

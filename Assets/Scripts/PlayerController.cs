@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _piercingBullet;
     [SerializeField] private Animator _animator;
     [SerializeField] private GameObject _shield;
-    private bool pierce;
-    private bool shield;
+    [SerializeField] private bool pierce;
+    [SerializeField] private bool shield;
 
     [SerializeField] private float _speed;
     private bool _moving;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        _shield.SetActive(false);
+        //_shield.SetActive(false);
     }
 
     private void Update()
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
                 Instantiate(_bullet, _bulletSpawner.position, _bulletSpawner.rotation);
             }
         }
-
+        _shield.transform.position = transform.position;
     }
 
     private void FixedUpdate()
@@ -111,20 +111,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Asteroid") || collision.collider.CompareTag("EBullet") || collision.collider.CompareTag("Enemy"))
+        if (!shield)
         {
-            _dead = true;
-            if (_dead)
+            if (collision.collider.CompareTag("Asteroid") || collision.collider.CompareTag("EBullet") || collision.collider.CompareTag("Enemy"))
             {
+                _dead = true;
+                if (_dead)
+                {
 
-                _rb.velocity = Vector3.zero;
-                _rb.angularVelocity = 0f;
+                    _rb.velocity = Vector3.zero;
+                    _rb.angularVelocity = 0f;
 
-                gameObject.SetActive(false);
+                    gameObject.SetActive(false);
 
-                _GM.PlayerDead();
+                    _GM.PlayerDead();
+                }
             }
         }
+        
 
         if (collision.collider.CompareTag("1Up"))
         {
@@ -136,9 +140,8 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(PiercingAmmo());
         }
-        if (collision.collider.CompareTag("Shield"))
+        if (collision.collider.CompareTag("ShieldPU"))
         {
-            Debug.Log("ActivatedShield");
             StartCoroutine(Shield());
         }
     }
@@ -176,5 +179,6 @@ public class PlayerController : MonoBehaviour
     {
         pierce = false;
         shield = false;
+        _shield.SetActive(false);
     }
 }

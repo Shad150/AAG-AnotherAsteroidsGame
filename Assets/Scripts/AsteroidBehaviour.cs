@@ -7,6 +7,8 @@ public class AsteroidBehaviour : MonoBehaviour
     [SerializeField] private GameManager _GM;
     [SerializeField] private SpriteRenderer _sR;
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private GameObject _powerUp;
+    [SerializeField] private float _powerUpChance = 5f;
 
     [SerializeField] private Sprite[] _sprites;
     public float _size = 1f;
@@ -48,6 +50,11 @@ public class AsteroidBehaviour : MonoBehaviour
             {
                 SplittedAsteroid();
                 SplittedAsteroid();
+            }
+
+            if (_powerUpChance >= Random.Range(0,100))
+            {
+                Instantiate(_powerUp, transform.position, Quaternion.identity);
             }
 
             //_GM.AsteroidDestroyed(this);
