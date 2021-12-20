@@ -22,13 +22,21 @@ public class PowerUps : MonoBehaviour
         _direction.transform.rotation = Quaternion.Euler(0,0,Random.Range(0, 360));
         //_rb.SetRotation(_direction.rotation);
         _rb.AddForce(_direction.transform.up * _speed, ForceMode2D.Impulse);
+
+        StartCoroutine(Destroy());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.tag == "Player")
+        if(collision.collider.tag == "Player" || collision.collider.CompareTag("Shield"))
         {
             Destroy(gameObject);
         }
+    }
+
+    private IEnumerator Destroy()
+    {
+        yield return new WaitForSeconds(10f);
+        Destroy(gameObject);
     }
 }

@@ -15,7 +15,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     [SerializeField] private Sprite[] _sprites;
 
+    public bool _inMenu;
     private float _speed = 0.3f;
+    private float _health = 40f;
 
     //private float _impulseForce;
 
@@ -28,8 +30,11 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         _sR.sprite = _sprites[Random.Range(0, _sprites.Length)];        //Sprite del asteroide
-        StartCoroutine(FindPlayer());
-        InvokeRepeating("Shot", 2f , 2f);
+        if (!_inMenu)
+        {
+            StartCoroutine(FindPlayer());
+            InvokeRepeating("Shot", 3f, 3f);
+        }
 
         if (_sR.sprite == _sprites[1])
         {
@@ -43,14 +48,15 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 dir = _player.transform.position - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        if (!_inMenu)
+        {
+            Vector3 dir = _player.transform.position - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        //transform.LookAt(_player.transform);
-
-        _rb.AddForce(dir * _speed, ForceMode2D.Force);
-
+            _rb.AddForce(dir * _speed, ForceMode2D.Force);
+        }
+        
         _animator.SetBool("Moving", true);
     }
 
@@ -68,6 +74,19 @@ public class EnemyBehaviour : MonoBehaviour
     {
         _GM._aM.EnemyShot();
         Instantiate(_bullet, _bulletSpawner.position, _bulletSpawner.rotation);
+    }
+
+    public void SetTrayectory(Vector2 direction)
+    {
+        if (_inMenu)
+        {
+            _rb.AddForce(direction * 1.5f, ForceMode2D.Impulse);
+            Vector3 dir = _fakeTarget.transform.position - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+
+        Destroy(gameObject, _health);
     }
 
     private IEnumerator FindPlayer()

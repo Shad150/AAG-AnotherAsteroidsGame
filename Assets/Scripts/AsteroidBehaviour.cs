@@ -8,7 +8,7 @@ public class AsteroidBehaviour : MonoBehaviour
     [SerializeField] private SpriteRenderer _sR;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private GameObject _powerUp;
-    [SerializeField] private float _powerUpChance = 5f;
+    [SerializeField] private float _powerUpChance = 10f;
 
     [SerializeField] private Sprite[] _sprites;
     public float _size = 1f;
@@ -17,7 +17,7 @@ public class AsteroidBehaviour : MonoBehaviour
 
     private float _speed = 10f;
 
-    private float _health = 50f;
+    private float _health = 30f;
 
     private void Awake()
     {

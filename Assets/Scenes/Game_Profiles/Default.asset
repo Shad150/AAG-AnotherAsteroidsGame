@@ -36,24 +36,24 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 1.6
+    value: 2.08
   threshold:
     overrideState: 1
-    value: 4
+    value: 4.69
   softKnee:
-    overrideState: 0
+    overrideState: 1
     value: 0.5
   clamp:
-    overrideState: 0
+    overrideState: 1
     value: 65472
   diffusion:
-    overrideState: 0
+    overrideState: 1
     value: 7
   anamorphicRatio:
-    overrideState: 0
+    overrideState: 1
     value: 0
   color:
-    overrideState: 0
+    overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}
   fastMode:
     overrideState: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.15
+    value: 0.059
   fastMode:
     overrideState: 0
     value: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.15
+    value: 0.07
   smoothness:
     overrideState: 1
     value: 0.2
@@ -150,7 +150,7 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 1
+    value: 0
   filtering:
     overrideState: 1
     value: {x: 50, y: 95}
@@ -187,7 +187,7 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 1
+    value: 0
   shutterAngle:
     overrideState: 1
     value: 270

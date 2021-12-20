@@ -13,6 +13,8 @@ TagManager:
   - Undefined
   - Enemy
   - ShieldPU
+  - TripleShot
+  - EnemySin
   layers:
   - Default
   - TransparentFX

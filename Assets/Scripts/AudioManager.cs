@@ -45,5 +45,16 @@ public class AudioManager : MonoBehaviour
     {
         _SFXSource.PlayOneShot(_sfx[7], 0.2f);
     }
-
+    public void PowerUp()
+    {
+        _SFXSource.PlayOneShot(_sfx[8], 0.2f);
+    }
+    public void OneUp()
+    {
+        _SFXSource.PlayOneShot(_sfx[9], 0.15f);
+    }
+    public void PiercingShot()
+    {
+        _SFXSource.PlayOneShot(_sfx[10], 0.2f);
+    }
 }

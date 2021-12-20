@@ -15,14 +15,19 @@ public class CameraShake : MonoBehaviour
             float x = Random.Range(-1, 1) * magnitude;      //El desplazamiento de la camara en x
             float y = Random.Range(-1, 1) * magnitude;      //Lo mismo pero en la y
 
-            transform.localPosition = new Vector3(x, y, _origPos.z);
+            transform.localPosition = new Vector3(x, y, -10);
 
             elapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.localPosition = _origPos;
+        //transform.localPosition = _origPos;
 
+    }
+
+    private void Update()
+    {
+        
     }
 }
