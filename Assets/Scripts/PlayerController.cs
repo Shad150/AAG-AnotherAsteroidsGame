@@ -44,29 +44,29 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _moving = Input.GetKey(KeyCode.W);
+        _moving = (Input.GetKey(KeyCode.W)|| Input.GetKey(KeyCode.UpArrow));
         //MOVEMENT
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             _animator.SetBool("Moving", true);
             _moving = true;
             _mForward = true;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             _animator.SetBool("Moving", true);
             _moving = true;
             _mForward = false;
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             _rotationDirection = 1f;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             _rotationDirection = - 1f;
         }
-        if(!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+        if((!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A)) && (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)))
         {
             _rotationDirection = 0f;
         }
